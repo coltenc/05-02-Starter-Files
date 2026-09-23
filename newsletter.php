@@ -83,6 +83,11 @@ var_dump($_POST);
                 echo htmlspecialchars($user); ?>">
 
                 <!-- Add validation error response -->
+                <?php if (isset($errors['user'])): ?>
+                <div class="invalid-feedback">
+                <?php echo $errors['user']; ?>
+                </div>
+                <?php endif; ?>
             
 
             </div>
@@ -93,11 +98,6 @@ var_dump($_POST);
                 <input class="form-control" type="text" id="email" name="email">
 
                 <!-- Add validation error response -->
-                <?php if (isset($errors['user'])): ?>
-                <div class="invalid-feedback">
-                <?php echo $errors['user']; ?>
-                </div>
-                <?php endif; ?>
 
 
 
