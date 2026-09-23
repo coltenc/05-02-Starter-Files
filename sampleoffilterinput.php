@@ -19,14 +19,14 @@
 
     // *************** filter_input ******************
     // if ($test === null) {
-    //     echo '<p>The field was not submitted.</p>';
-    // } elseif ($test === '') {
-    //     echo '<p>The field was submitted empty.</p>';
-    // } else {
-    //     echo '<p>You entered: '
-    //         . htmlspecialchars($test)
-    //         . '</p>';
-    // }
+    //      echo '<p>The field was not submitted.</p>';
+    //  } elseif ($test === '') {
+    //      echo '<p>The field was submitted empty.</p>';
+    //  } else {
+    //      echo '<p>You entered: '
+    //          . htmlspecialchars($test)
+    //             . '</p>';
+    //  }
 
     // if ($test)
     // {
@@ -36,21 +36,21 @@
     // }
 
     // *************** filter_input with validataion ******************
-    // $emailResult = filter_input(
-    //     INPUT_POST,
-    //     'email',
-    //     FILTER_VALIDATE_EMAIL
-    // );
+    $emailResult = filter_input(
+        INPUT_POST,
+        'email',
+        FILTER_VALIDATE_EMAIL
+    );
 
-    // echo 'Email: <pre>';
-    // var_dump($emailResult);
-    // echo '</pre>';
+    echo 'Email: <pre>';
+    var_dump($emailResult);
+    echo '</pre>';
 
 
 
     ?>
 
-    <form action="sampleoffilterinput.php" method="get">
+    <form action="sampleoffilterinput.php" method="post">
         <label for="test">Test value</label>
         <input type="test" id="test" name="test">
         <button type="submit">Submit</button>

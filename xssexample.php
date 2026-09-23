@@ -19,7 +19,7 @@
     <?php
     if (isset($_GET['comment'])) {
         // Begin by echoing the value directly and observing the result.
-        echo $_GET['comment'];
+        echo htmlspecialchars($_GET['comment']);
 
         // Then replace the direct echo with:
         //echo htmlspecialchars($_GET['comment']);

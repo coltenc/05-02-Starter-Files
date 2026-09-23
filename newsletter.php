@@ -1,11 +1,48 @@
 <?php
 // Initialize $errors, $user, and $email.
+$error = [];
+    $user = '';
+    $email = '';
+
 
 // On POST:
 // 1. Retrieve the raw user and email strings with filter_input().
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $user = filter_input(INPUT_POST, 'user');
+    $email = filter_input(INPUT_POST, 'email');
+    var_dump($_POST);
+}
+
 // 2. Validate the username.
+if($user === null || trim($user) === ''){
+    $error['user'] = 'username is required.';
+}
+if($email === null || trim($email) === ''){
+    $error['email'] = 'email is required.';
+} else{
+    $emailResult = filter_input(
+        INPUT_POST,
+        'email',
+        FILTER_VALIDATE_EMAIL
+    );
+
+    if($emailResult === false){
+        $error['email'] = 'Enter a valid email address.';
+    }
+}
+
+//var_dump($error);
 // 3. Observe and test the FILTER_VALIDATE_EMAIL result.
+
+
 // 4. Redirect only when no errors remain.
+if(empty($error)){
+    header('Location: success.php');
+    exit;
+}
+
+var_dump($_POST);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,12 +63,15 @@
 
         <!-- Display a plain validation-error list here before styling it. -->
         <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger">
+
             <h2>Please correct the following</h2>
             <ul>
                 <?php foreach ($errors as $message): ?>
                     <li><?php echo ($message); ?></li>
                 <?php endforeach; ?>
             </ul>
+            </div>
         <?php endif; ?>
 
         <form action="newsletter.php" method="post" novalidate>
@@ -39,9 +79,11 @@
                 <label class="form-label" for="user">Username</label>
 
                 <!-- Add the sticky value after its purpose is demonstrated. -->
-                <input class="form-control" type="text" id="user" name="user">
+                <input class="form-control" type="text" id="user" name="user" value = "<?php
+                echo htmlspecialchars($user); ?>">
 
                 <!-- Add validation error response -->
+            
 
             </div>
 
@@ -51,6 +93,12 @@
                 <input class="form-control" type="text" id="email" name="email">
 
                 <!-- Add validation error response -->
+                <?php if (isset($errors['user'])): ?>
+                <div class="invalid-feedback">
+                <?php echo $errors['user']; ?>
+                </div>
+                <?php endif; ?>
+
 
 
 
